@@ -1,0 +1,83 @@
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+		Program Ex = new Program();
+		Ex.run();
+	}
+}
+class BigNumber{
+    
+    protected long index;
+    
+    void divide(long Num1 , long Num2) {
+        this.index = Num1 / Num2;
+    }
+  
+    void plus(long Num1 , long Num2){
+        this.index = Num1 + Num2;
+    }
+    
+    void mines(long Num1 , long Num2){
+        this.index = Num1 - Num2;
+    }
+    
+    void multiply(long Num1 , long Num2){
+        this.index = Num1 * Num2;
+    }
+    
+    void bigger(long Num1 , long Num2){
+        this.index = (Num1 > Num2) ? Num1 : Num2;
+    }
+    
+    void miner(long Num1 , long Num2){
+        this.index = (Num1 < Num2) ? Num1 : Num2; 
+    }
+   long getindex() {
+       return index;
+   }
+}
+class Program extends BigNumber{
+    
+   Scanner input = new Scanner(System.in);
+   
+   void run() {
+      System.out.println("pleas enter the 2 bignumber to show the all math result");
+      long Num1 = input.nextLong();
+      long Num2 = input.nextLong();
+    while(true){
+      String Choice = input.next();
+      switch(Choice){
+          case "+":
+              plus(Num1,Num2);
+            break;
+          case "-" :
+              mines(Num1,Num2);
+            break;
+          case "/":
+              divide(Num1,Num2);
+            break;
+          case "*":
+              multiply(Num1,Num2);
+            break;
+          case ">":
+              bigger(Num1,Num2);
+            break;
+          case "<":
+              miner(Num1,Num2);
+            break;
+          case "exit":
+            return;
+          default :
+             System.out.println("undefined values");
+            continue;
+
+       }
+       
+      System.out.println("result: " + getindex());
+    } 
+
+  }
+  
+}
+
