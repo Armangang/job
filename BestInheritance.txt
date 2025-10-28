@@ -1,0 +1,100 @@
+import java.util.Scanner;
+public class Main
+{
+	public static void main(String[] args) {
+		Program Ex = new Program();
+		Ex.run();
+	}
+}
+class BigNumber{
+    
+    protected long index;
+    
+    void divide(long Num1 , long Num2) {
+        this.index = Num1 / Num2;
+    }
+  
+    void plus(long Num1 , long Num2){
+        this.index = Num1 + Num2;
+    }
+    
+    void mines(long Num1 , long Num2){
+        this.index = Num1 - Num2;
+    }
+    
+    void multiply(long Num1 , long Num2){
+        this.index = Num1 * Num2;
+    }
+    
+    void bigger(long Num1 , long Num2){
+        this.index = (Num1 > Num2) ? Num1 : Num2;
+    }
+    
+    void miner(long Num1 , long Num2){
+        this.index = (Num1 < Num2) ? Num1 : Num2; 
+    }
+   long getindex() {
+       return index;
+   }
+}
+class Program extends BigNumber {
+
+    void run() {
+        
+        System.out.println("how many operation you want to do?");
+        Scanner input = new Scanner(System.in);
+        
+        int count = input.nextInt();
+
+        long[] Num1 = new long[count];
+        long[] Num2 = new long[count];
+
+        for (int i = 1; i < count; i++) {
+            
+            System.out.println("num 1:");
+            Num1[i] = input.nextLong();
+            System.out.println("num 2:");
+            Num2[i] = input.nextLong();
+            
+            while(true){
+                
+            System.out.println("for What operation did you want?؟ (+, -, *, /, >, <)");
+            String choice = input.next();
+
+            switch (choice) {
+                case "+":
+                    plus(Num1[i], Num2[i]);
+                    System.out.println("plus " + getindex());
+                    break;
+                case "-":
+                    mines(Num1[i], Num2[i]);
+                    System.out.println("mines: " + getindex());
+                    break;
+                case "*":
+                    multiply(Num1[i], Num2[i]);
+                    System.out.println("multiply" + getindex());
+                    break;
+                case "/":
+                        divide(Num1[i], Num2[i]);
+                        System.out.println("divide: " + getindex());
+                    break;
+                case ">":
+                    bigger(Num1[i], Num2[i]);
+                    System.out.println("bigger: " + getindex());
+                    break;
+                case "<":
+                    miner(Num1[i], Num2[i]);
+                    System.out.println("miner " + getindex());
+                    break;
+                case "exit":
+                    return;
+                default:
+                    System.out.println("nun result");
+                    break;
+            }
+            }
+        }
+    }
+}
+
+
