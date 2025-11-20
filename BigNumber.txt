@@ -1,0 +1,116 @@
+import java.util.Scanner;
+public class MainActivity
+{
+    public static void main(String[] args) {
+        Program Ex = new Program();
+        Ex.run();
+    }
+}
+class BigNumber{
+
+
+    public static String addStrings(String num1, String num2) {
+        StringBuilder result = new StringBuilder();
+        int i = num1.length() - 1;
+        int j = num2.length() - 1;
+        int carry = 0;
+
+        while (i >= 0 || j >= 0 || carry != 0) {
+            int digit1 = (i >= 0) ? num1.charAt(i--) - '0' : 0;
+            int digit2 = (j >= 0) ? num2.charAt(j--) - '0' : 0;
+
+            int sum = digit1 + digit2 + carry;
+            carry = sum / 10;
+            result.append(sum % 10);
+        }
+
+        return result.reverse().toString();
+    }
+
+
+
+    public static String mineStrings(String num1, String num2) {
+        if (compareStrings(num1, num2) < 0) {
+            return "-" + mineStrings(num2, num1);
+        }
+
+        StringBuilder result = new StringBuilder();
+        int i = num1.length() - 1;
+        int j = num2.length() - 1;
+        int borrow = 0;
+
+        while (i >= 0) {
+            int digit1 = num1.charAt(i--) - '0';
+            int digit2 = (j >= 0) ? num2.charAt(j--) - '0' : 0;
+
+            int diff = digit1 - digit2 - borrow;
+            if (diff < 0) {
+                diff += 10;
+                borrow = 1;
+            } else {
+                borrow = 0;
+            }
+            result.append(diff);
+        }
+
+
+        while (result.length() > 1 && result.charAt(result.length() - 1) == '0') {
+            result.deleteCharAt(result.length() - 1);
+        }
+
+        return result.reverse().toString();
+    }
+    
+    
+
+    public static int compareStrings(String num1, String num2) {
+        if (num1.length() > num2.length()) return 1;
+        if (num1.length() < num2.length()) return -1;
+        return num1.compareTo(num2);
+    }
+
+}
+class Program{
+
+    void run() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("How many operations do you want to do?");
+        int count = input.nextInt();
+
+        String[] Num1 = new String[count];
+        String[] Num2 = new String[count];
+
+        for (int i = 0; i < count; i++) {
+            System.out.println("num 1:");
+            Num1[i] = input.next();
+            System.out.println("num 2:");
+            Num2[i] = input.next();
+
+            System.out.println("Which operation? (+, >, <, -)");
+            String choice = input.next();
+
+            switch (choice) {
+                case "+":
+                    String sum = BigNumber.addStrings(Num1[i], Num2[i]);
+                    System.out.println("Sum: " + sum);
+                    break;
+                case "-":
+                    String mine = BigNumber.mineStrings(Num1[i], Num2[i]);
+                    System.out.println("mine: " + mine);
+                    break;
+                case ">":
+                    int cmp1 = BigNumber.compareStrings(Num1[i], Num2[i]);
+                    System.out.println("Bigger: " + (cmp1 >= 0 ? Num1[i] : Num2[i]));
+                    break;
+                case "<":
+                    int cmp2 = BigNumber.compareStrings(Num1[i], Num2[i]);
+                    System.out.println("Smaller: " + (cmp2 <= 0 ? Num1[i] : Num2[i]));
+                    break;
+                default:
+                    System.out.println("quit");
+                    return;
+            }
+        }
+    }
+}
